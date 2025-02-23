@@ -11,7 +11,7 @@ function ProductList() {
     const dispatch = useDispatch()
     const cartAmount = useSelector(state => state.cart.items.length);
 
-    
+
     const plantsArray = [
         {
             category: "Air Purifying Plants",
@@ -255,6 +255,7 @@ const handleContinueShopping = (e) => {
     setShowPlants(true);
   };
 
+
 const handleAddToCart = (product) => {
     dispatch(addItem(product));
     setAddedToCart((prevState) => ({
@@ -294,7 +295,13 @@ const handleAddToCart = (product) => {
                     <div className="product-title">{plant.name}</div>
                     <div className='product-price'>{plant.cost}</div>
                     <div className='product-description'>{plant.description}</div>
-                    <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                    <button className={`product-button ${addedToCart[plant.name] ? "added-to-cart" : ""}`} 
+                                onClick={() => handleAddToCart(plant)}
+                                disabled={addedToCart[plant.name]} //Disable button if already added 
+                                >
+                                    {addedToCart[plant.name] ? "Added to Cart" : "Add to Cart"}
+                                    </button>
+                    
             </div>
                 ))}
     </div>
